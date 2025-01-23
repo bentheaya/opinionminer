@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Result</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Analysis Result</h1>
+        <div class="card">
+            <div class="card-header">
+                Sentiment Analysis
+            </div>
+            <div class="card-body">
+                <p><strong>Input Text:</strong> {{ input_data.text }}</p>
+                <p><strong>Sentiment Category:</strong> 
+                    <span class="badge {% if analysis.sentiment_category == 'Positive' %}badge-success
+                                    {% elif analysis.sentiment_category == 'Negative' %}badge-danger
+                                    {% else %}badge-secondary{% endif %}">
+                        {{ analysis.sentiment_category }}
+                    </span>
+                </p>
+                <p><strong>Sentiment Score:</strong> {{ analysis.sentiment_score }}</p>
+            </div>
+        </div>
+        <div class="mt-3">
+            <a href="{% url 'sentiment:analyze' %}" class="btn btn-primary">Analyze Another</a>
+        </div>
+        <div class="mt-3">
+		    <a href="{% url 'sentiment:history' %}" class="btn btn-secondary">View Analysis History</a>
+		</div>
+
+    </div>
+</body>
+</html>

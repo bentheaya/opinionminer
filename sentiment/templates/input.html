@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Sentiment Analysis</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Analyze</button>
+        </form>
+        <div class="mt-3">
+		    <a href="{% url 'sentiment:history' %}" class="btn btn-secondary">View Analysis History</a>
+		</div>
+    </div>
+<script>
+    const textInput = document.querySelector('#id_text');
+    const charCount = document.createElement('p');
+    charCount.id = 'charCount';
+    charCount.style.fontSize = '0.9em';
+    textInput.parentElement.appendChild(charCount);
+
+    textInput.addEventListener('input', () => {
+        const length = textInput.value.length;
+        charCount.textContent = `${length}/500 characters`;
+        charCount.style.color = length > 500 ? 'red' : 'black';
+    });
+</script>
+</body>
+</html>

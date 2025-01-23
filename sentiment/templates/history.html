@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis History</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Analysis History</h1>
+        {% if results %}
+            <table class="table table-striped mt-3">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Text</th>
+                        <th>Sentiment</th>
+                        <th>Score</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in results %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ result.input_data.text }}</td>
+                            <td>
+                                <span class="badge 
+                                    {% if result.sentiment_category == 'Positive' %}badge-success
+                                    {% elif result.sentiment_category == 'Negative' %}badge-danger
+                                    {% else %}badge-secondary{% endif %}">
+                                    {{ result.sentiment_category }}
+                                </span>
+                            </td>
+                            <td>{{ result.sentiment_score }}</td>
+                            <td>{{ result.analyzed_at|date:"M d, Y H:i" }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-center">No analysis results available.</p>
+        {% endif %}
+        <div class="mt-3">
+            <a href="{% url 'sentiment:analyze' %}" class="btn btn-primary">Analyze New Text</a>
+        </div>
+    </div>
+</body>
+</html>
